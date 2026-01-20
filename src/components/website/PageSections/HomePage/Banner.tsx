@@ -4,13 +4,31 @@ import Image from "next/image";
 import { useState } from "react";
 import { ShieldCheck, ClipboardList, HelpCircle } from "lucide-react";
 import DealerModal from "@/components/website/Modals/DealerModal";
+import SuccessModal from "@/components/website/Modals/SuccessModal";
+import QuestionnaireModal from "@/components/website/Modals/QuestionnaireModal";
+import { VerifyDealerResponse } from "@/lib/api";
 
 export default function Banner() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
+  const [verificationData, setVerificationData] = useState<
+    VerifyDealerResponse["data"] | null
+  >(null);
+
+  const handleVerificationSuccess = (data: VerifyDealerResponse["data"]) => {
+    setVerificationData(data);
+    setShowSuccessModal(true);
+  };
+
+  const handleStartQuestionnaire = () => {
+    setShowSuccessModal(false);
+    setShowQuestionnaireModal(true);
+  };
 
   return (
     <>
-      {/* ================= BANNER ================= */}
+      {/* ... (Banner content) ... */}
       <section className="relative w-full h-[500px]">
         {/* Background Image */}
         <Image
@@ -44,7 +62,25 @@ export default function Banner() {
       </section>
 
       {/* Dealer ID Modal */}
-      <DealerModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <DealerModal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSuccess={handleVerificationSuccess}
+      />
+
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onOpenChange={setShowSuccessModal}
+        dealerData={verificationData}
+        onQuestionnaireStart={handleStartQuestionnaire}
+      />
+
+      {/* Questionnaire Modal */}
+      <QuestionnaireModal
+        isOpen={showQuestionnaireModal}
+        onOpenChange={setShowQuestionnaireModal}
+      />
 
       {/* ================= FEATURES ================= */}
       <section className="bg-white py-14">

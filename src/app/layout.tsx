@@ -22,9 +22,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Hierro A Medida",
+  title: "Fleet Core",
   description:
-    "Design amazing digital experiences that create more happy in the world.",
+    "Fleet Core is a comprehensive fleet management system that helps you manage your fleet vehicles, drivers, and operations.",
 };
 
 export default function RootLayout({

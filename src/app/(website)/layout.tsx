@@ -4,9 +4,9 @@ import Navbar from "@/components/website/Common/Navbar";
 import Footer from "@/components/website/Common/Footer";
 
 export const metadata: Metadata = {
-  title: "Services Services",
+  title: "Fleet Core",
   description:
-    "Elite craftsmanship in custom stone, tile, and masonry for homes & businesses across the Valley.",
+    "Fleet Core is a comprehensive fleet management system that helps you manage your fleet vehicles, drivers, and operations.",
 };
 
 export default function RootLayout({

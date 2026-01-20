@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const menuItems = [
     { href: "/", label: "Home" },
-    { href: "/questionnaire", label: "Questionnaire" },
+    // { href: "/questionnaire", label: "Questionnaire" },
     { href: "/privacy-policy", label: "Privacy & Policy" },
   ];
 
@@ -49,7 +49,7 @@ export default function Navbar() {
 
           {/* Contact Button */}
           <Link
-            href="/contact"
+            href="/contact-us"
             className="bg-[#07589E] text-white text-sm font-medium px-6 py-2 rounded-md hover:bg-[#064b85] transition"
           >
             Contact
