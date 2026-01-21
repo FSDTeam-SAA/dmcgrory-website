@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  UserCheck,
-  BadgePercent,
-  ThumbsUp,
-  Clock,
-} from "lucide-react";
+import { UserCheck, BadgePercent, ThumbsUp, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function WhyChooseUs() {
@@ -46,8 +41,8 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mt-4 text-gray-600 max-w-3xl mx-auto text-sm md:text-base"
         >
-          Choose us for an easy, reliable, and secure vehicle transaction.
-          We make the process hassle-free and beneficial for you.
+          Choose us for an easy, reliable, and secure vehicle transaction. We
+          make the process hassle-free and beneficial for you.
         </motion.p>
 
         {/* Cards */}
@@ -63,12 +58,13 @@ export default function WhyChooseUs() {
             className="border rounded-xl p-8 hover:shadow-md transition"
           >
             <UserCheck size={48} className="mx-auto text-[#07589E]" />
-            <h3 className="mt-6 font-semibold text-lg">
-              Professionalism
-            </h3>
+            <h3 className="mt-6 font-semibold text-lg">Professionalism</h3>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse luctus molestie sapien
+              We uphold the highest standards of professionalism through
+              integrity, reliability, and respect. Our team is committed to
+              delivering quality work, clear communication, and timely results
+              while maintaining a courteous and ethical approach in every
+              interaction.
             </p>
           </motion.div>
 
@@ -80,12 +76,11 @@ export default function WhyChooseUs() {
             className="border rounded-xl p-8 hover:shadow-md transition"
           >
             <BadgePercent size={48} className="mx-auto text-[#07589E]" />
-            <h3 className="mt-6 font-semibold text-lg">
-              Competitive Offers
-            </h3>
+            <h3 className="mt-6 font-semibold text-lg">Competitive Offers</h3>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse luctus molestie sapien
+              We provide competitive offers that deliver exceptional value by
+              combining high-quality solutions, fair pricing, and flexible
+              options tailored to meet our customers&apos; needs.
             </p>
           </motion.div>
 
@@ -101,8 +96,10 @@ export default function WhyChooseUs() {
               Customer Satisfaction
             </h3>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse luctus molestie sapien
+              Customer satisfaction is our top priority. We are committed to
+              understanding our clients&apos; needs, exceeding expectations, and
+              building lasting relationships through responsive service and
+              dependable support
             </p>
           </motion.div>
 
@@ -114,12 +111,11 @@ export default function WhyChooseUs() {
             className="border rounded-xl p-8 hover:shadow-md transition"
           >
             <Clock size={48} className="mx-auto text-[#07589E]" />
-            <h3 className="mt-6 font-semibold text-lg">
-              Fast & Convenient
-            </h3>
+            <h3 className="mt-6 font-semibold text-lg">Fast & Convenient</h3>
             <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse luctus molestie sapien
+              We deliver fast and convenient solutions designed to save time and
+              simplify the experience, ensuring efficiency and ease at every
+              step.
             </p>
           </motion.div>
         </motion.div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 type FormValues = {
   firstName: string;
@@ -32,8 +33,31 @@ export default function ContactUs() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log("✅ Contact Form Submit Data:", data);
-    reset();
+    const toastId = toast.loading("Sending your message...");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("Message sent successfully!", { id: toastId });
+        reset();
+      } else {
+        toast.error(result.error || "Failed to send message", { id: toastId });
+      }
+    } catch (error) {
+      console.error("✅ Contact Form Submit Error:", error);
+      toast.error("An unexpected error occurred. Please try again later.", {
+        id: toastId,
+      });
+    }
   };
 
   // ✅ subtle animations
@@ -104,7 +128,10 @@ export default function ContactUs() {
                       }`}
                       {...register("firstName", {
                         required: "First name is required",
-                        minLength: { value: 2, message: "Minimum 2 characters" },
+                        minLength: {
+                          value: 2,
+                          message: "Minimum 2 characters",
+                        },
                       })}
                     />
                     {errors.firstName && (
@@ -124,7 +151,10 @@ export default function ContactUs() {
                       }`}
                       {...register("lastName", {
                         required: "Last name is required",
-                        minLength: { value: 2, message: "Minimum 2 characters" },
+                        minLength: {
+                          value: 2,
+                          message: "Minimum 2 characters",
+                        },
                       })}
                     />
                     {errors.lastName && (
@@ -178,7 +208,10 @@ export default function ContactUs() {
                     }`}
                     {...register("phone", {
                       required: "Phone number is required",
-                      minLength: { value: 8, message: "Phone number too short" },
+                      minLength: {
+                        value: 8,
+                        message: "Phone number too short",
+                      },
                     })}
                   />
                   {errors.phone && (
@@ -203,7 +236,10 @@ export default function ContactUs() {
                     }`}
                     {...register("message", {
                       required: "Message is required",
-                      minLength: { value: 10, message: "Minimum 10 characters" },
+                      minLength: {
+                        value: 10,
+                        message: "Minimum 10 characters",
+                      },
                     })}
                   />
                   {errors.message && (
