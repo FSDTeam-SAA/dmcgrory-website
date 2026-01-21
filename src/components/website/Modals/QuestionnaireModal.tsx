@@ -34,7 +34,16 @@ export default function QuestionnaireModal({
     (_, i) => currentYear - i,
   );
 
-  const auctions = ["Orlando", "CRL", "TRA", "CRA"];
+  const auctions = [
+    "Manheim Orlando",
+    "Manheim Central Florida",
+    "Space Coast Auto Auction",
+    "Space Coast Auto Auction Digital Lane",
+    "ACV",
+    "Open Lane",
+    "Others",
+  ];
+  const auctionsLight = ["Green Light 🟢", "Yellow Light 🟡", "Red Light 🔴"];
   const colors = [
     "Black",
     "White",
@@ -45,12 +54,15 @@ export default function QuestionnaireModal({
     "Tan",
     "Gray Fabric",
   ];
-  const models = [
-    "Honda Civic",
-    "Toyota Camry",
-    "Ford F-150",
-    "Chevrolet Silverado",
-    "Tesla Model 3",
+  const exteriorColors = [
+    "Black",
+    "White",
+    "Silver",
+    "Gray",
+    "Blue",
+    "Red",
+    "Tan",
+    "Gray Fabric",
   ];
 
   const handleNext = async () => {
@@ -69,7 +81,9 @@ export default function QuestionnaireModal({
         }
       } catch (err) {
         console.error("Submission Error:", err);
-        toast.error("An unexpected error occurred during submission.");
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to submit questionnaire";
+        toast.error(errorMessage);
       } finally {
         setIsSubmitting(false);
       }
@@ -145,7 +159,7 @@ export default function QuestionnaireModal({
           </p>
           <button
             onClick={handleClose}
-            className="mt-6 px-8 py-2 bg-[#07589E] text-white rounded-md hover:bg-[#064b85] transition shadow-lg hover:shadow-[#07589E]/20"
+            className="mt-6 px-8 py-2 bg-[#07589E] text-white rounded-md hover:bg-[#064b85] transition shadow-lg hover:shadow-[#07589E]/20 cursor-pointer"
           >
             Close
           </button>
@@ -226,6 +240,7 @@ export default function QuestionnaireModal({
                   onChange={(e) => updateData({ mileage: e.target.value })}
                 />
               </div>
+
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
                   Choose Interior Color
@@ -245,27 +260,43 @@ export default function QuestionnaireModal({
                   ))}
                 </select>
               </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Choose Exterior Color
+                </label>
+                <select
+                  className="w-full h-11 px-3 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-[#07589E] transition-all"
+                  value={data.exteriorChoice}
+                  onChange={(e) =>
+                    updateData({ exteriorChoice: e.target.value })
+                  }
+                >
+                  <option value="">Select Color</option>
+                  {exteriorColors.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">
                     Model
                   </label>
-                  <select
+                  <input
+                    type="text"
+                    placeholder="Enter Model"
                     className="w-full h-11 px-3 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-[#07589E] transition-all"
                     value={data.model}
                     onChange={(e) => updateData({ model: e.target.value })}
-                  >
-                    <option value="">Select Model</option>
-                    {models.map((m) => (
-                      <option key={m} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">
-                    Series
+                    Series (Optional)
                   </label>
                   <input
                     type="text"
@@ -292,6 +323,60 @@ export default function QuestionnaireModal({
                   onChange={(e) => updateData({ floorPrice: e.target.value })}
                 />
               </div>
+
+              <div className="relative">
+                <div className="flex justify-between gap-2 items-center mb-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Auction Light
+                  </label>
+
+                  {/* Tooltip Wrapper */}
+                  <div className="relative group">
+                    <span className="cursor-pointer border border-gray-300 rounded-full w-5 h-5 flex items-center justify-center text-xs font-semibold text-gray-700">
+                      ?
+                    </span>
+
+                    {/* Tooltip */}
+                    <div className="absolute right-0 top-7 z-20 hidden group-hover:block w-72 rounded-lg bg-white border border-gray-200 shadow-lg p-3 text-sm text-gray-700">
+                      <p className="font-semibold mb-2">
+                        Auction Light Meaning
+                      </p>
+
+                      <ul className="space-y-2">
+                        <li>
+                          🟢 <span className="font-medium">Green Light</span> –
+                          Vehicle is in excellent condition with no major issues
+                          reported.
+                        </li>
+                        <li>
+                          🟡 <span className="font-medium">Yellow Light</span> –
+                          Minor issues found. Review inspection report carefully
+                          before bidding.
+                        </li>
+                        <li>
+                          🔴 <span className="font-medium">Red Light</span> –
+                          Major damage or mechanical problems. High-risk
+                          purchase.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <select
+                  className="w-full h-11 px-3 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-[#07589E] transition-all"
+                  value={data.auctionLight}
+                  onChange={(e) => updateData({ auctionLight: e.target.value })}
+                >
+                  <option value="">Select Auction Light </option>
+                  {auctionsLight.map((a) => (
+                    <option key={a} value={a}>
+                      {a}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
                   Announcement

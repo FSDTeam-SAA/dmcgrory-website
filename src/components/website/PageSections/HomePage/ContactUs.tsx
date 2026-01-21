@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { motion } from "framer-motion";
 
 type FormValues = {
   firstName: string;
@@ -32,30 +33,67 @@ export default function ContactUs() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log("✅ Contact Form Submit Data:", data);
-
-    // optional: reset after submit
     reset();
+  };
+
+  // ✅ subtle animations
+  const fadeUp = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  const stagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.06 } },
   };
 
   return (
     <section className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Outer Box (like screenshot) */}
-        <div className="border border-blue-300 rounded-2xl px-6 py-10 md:px-12 md:py-12">
+        {/* Outer Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="border border-blue-300 rounded-2xl px-6 py-10 md:px-12 md:py-12"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* ================= FORM ================= */}
-            <div className="md:pl-6">
-              <p className="text-xs text-gray-700">Get in touch</p>
-              <p className="mt-2 text-sm text-gray-600 max-w-xs leading-relaxed">
-                Our friendly team would love to hear from you.
-              </p>
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={stagger}
+              className="md:pl-6"
+            >
+              <motion.p
+                variants={fadeUp}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="text-xs text-gray-700"
+              >
+                Get in touch
+              </motion.p>
 
-              <form
+              <motion.p
+                variants={fadeUp}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="mt-2 text-sm text-gray-600 max-w-xs leading-relaxed"
+              >
+                Our friendly team would love to hear from you.
+              </motion.p>
+
+              <motion.form
                 onSubmit={handleSubmit(onSubmit)}
                 className="mt-8 space-y-5"
+                variants={stagger}
               >
                 {/* First + Last */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <motion.div
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                >
                   <div className="text-left">
                     <label className="text-xs text-gray-700">First name</label>
                     <input
@@ -66,10 +104,7 @@ export default function ContactUs() {
                       }`}
                       {...register("firstName", {
                         required: "First name is required",
-                        minLength: {
-                          value: 2,
-                          message: "Minimum 2 characters",
-                        },
+                        minLength: { value: 2, message: "Minimum 2 characters" },
                       })}
                     />
                     {errors.firstName && (
@@ -89,10 +124,7 @@ export default function ContactUs() {
                       }`}
                       {...register("lastName", {
                         required: "Last name is required",
-                        minLength: {
-                          value: 2,
-                          message: "Minimum 2 characters",
-                        },
+                        minLength: { value: 2, message: "Minimum 2 characters" },
                       })}
                     />
                     {errors.lastName && (
@@ -101,10 +133,14 @@ export default function ContactUs() {
                       </p>
                     )}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Email */}
-                <div className="text-left">
+                <motion.div
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-left"
+                >
                   <label className="text-xs text-gray-700">Email</label>
                   <input
                     type="email"
@@ -125,10 +161,14 @@ export default function ContactUs() {
                       {errors.email.message}
                     </p>
                   )}
-                </div>
+                </motion.div>
 
                 {/* Phone */}
-                <div className="text-left">
+                <motion.div
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-left"
+                >
                   <label className="text-xs text-gray-700">Phone number</label>
                   <input
                     type="text"
@@ -138,10 +178,7 @@ export default function ContactUs() {
                     }`}
                     {...register("phone", {
                       required: "Phone number is required",
-                      minLength: {
-                        value: 8,
-                        message: "Phone number too short",
-                      },
+                      minLength: { value: 8, message: "Phone number too short" },
                     })}
                   />
                   {errors.phone && (
@@ -149,10 +186,14 @@ export default function ContactUs() {
                       {errors.phone.message}
                     </p>
                   )}
-                </div>
+                </motion.div>
 
                 {/* Message */}
-                <div className="text-left">
+                <motion.div
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-left"
+                >
                   <label className="text-xs text-gray-700">Message</label>
                   <textarea
                     placeholder="Message"
@@ -162,10 +203,7 @@ export default function ContactUs() {
                     }`}
                     {...register("message", {
                       required: "Message is required",
-                      minLength: {
-                        value: 10,
-                        message: "Minimum 10 characters",
-                      },
+                      minLength: { value: 10, message: "Minimum 10 characters" },
                     })}
                   />
                   {errors.message && (
@@ -173,10 +211,14 @@ export default function ContactUs() {
                       {errors.message.message}
                     </p>
                   )}
-                </div>
+                </motion.div>
 
                 {/* Checkbox */}
-                <div className="text-left">
+                <motion.div
+                  variants={fadeUp}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-left"
+                >
                   <div className="flex items-center gap-2 text-xs text-gray-600">
                     <input
                       type="checkbox"
@@ -199,21 +241,30 @@ export default function ContactUs() {
                       {errors.agree.message}
                     </p>
                   )}
-                </div>
+                </motion.div>
 
                 {/* Button */}
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
                   className="w-full bg-[#07589E] text-white py-2.5 rounded-md hover:bg-[#064b85] transition text-xs font-medium disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Sending..." : "Send message"}
-                </button>
-              </form>
-            </div>
+                </motion.button>
+              </motion.form>
+            </motion.div>
 
-            {/* ================= IMAGE (BIGGER) ================= */}
-            <div className="flex justify-center md:justify-end md:pr-6">
+            {/* ================= IMAGE ================= */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+              className="flex justify-center md:justify-end md:pr-6"
+            >
               <div className="relative w-full max-w-[420px] h-[540px] md:h-[620px] rounded-sm overflow-hidden border-2 border-blue-600">
                 <Image
                   src="/images/contact.jpg"
@@ -223,9 +274,9 @@ export default function ContactUs() {
                   className="object-cover"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -7,9 +7,11 @@ export interface QuestionnaireData {
   vehicleYear: number | string;
   mileage: number | string;
   interiorChoice: string;
+  exteriorChoice: string;
   model: string;
   series: string;
   floorPrice: number | string;
+  auctionLight: string;
   announcement: string;
   remarks?: string;
 }
@@ -30,9 +32,11 @@ const initialData: QuestionnaireData = {
   vehicleYear: "",
   mileage: "",
   interiorChoice: "",
+  exteriorChoice: "",
   model: "",
   series: "",
   floorPrice: "",
+  auctionLight: "",
   announcement: "",
   remarks: "",
 };

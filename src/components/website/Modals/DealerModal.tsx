@@ -12,6 +12,7 @@ import { BadgeCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { verifyDealer, VerifyDealerResponse } from "@/lib/api";
 import { useQuestionnaireStore } from "@/lib/store/useQuestionnaireStore";
+import { toast } from "sonner";
 
 type DealerFormValues = {
   dealerId: string;
@@ -49,11 +50,14 @@ export default function DealerModal({
         reset();
         onOpenChange(false);
         onSuccess(res.data);
+        toast.success("Dealer verified successfully");
       } else {
         // Handle case where dealer not found if needed
+        toast.error("Dealer not found or verification failed");
         console.warn("Dealer not found or verification failed:", res.message);
       }
     } catch (err) {
+      toast.error("Dealer not found.");
       console.error("Error verifying dealer:", err);
     }
   };
